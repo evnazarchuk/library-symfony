@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Library{% endblock %}
+{% block body %}
+    {% if books %}
+        <table id="libery" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>Cover</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.year }}</td>
+                    <td><img src="{{ asset('uploads/') ~ book.cover }}" alt="" class="img-thumbnail img-cover"></td>
+                    <td>
+                        <a href="/show/{{ book.id }}" class="btn btn-dark">Show</a>
+                        <a href="/edit/{{ book.id }}" class="btn btn-light">Edit</a>
+                        <a href="#" class="btn btn-danger delete-libery" data-id="{{ book.id }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(books) }}
+        </div>
+    {% else %}
+        <p>No books to display</p>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script src="/js/main.js"></script>
+{% endblock %}
