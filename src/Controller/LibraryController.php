@@ -35,7 +35,7 @@ class LibraryController extends Controller
         $books = $paginator->paginate(
             $this->getDoctrine()->getRepository(Library::class)->findAll(),
             $request->query->getInt('page',1),
-            1
+            10
         );
         return $this->render('library/index.html.twig', [
             'books' => $books
@@ -114,7 +114,6 @@ class LibraryController extends Controller
             ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            //$book->setCover($this->upload($request)); //upload image
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
